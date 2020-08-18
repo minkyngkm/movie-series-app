@@ -1,12 +1,11 @@
-import { SEARCH_MOVIE } from "./type"
+import { SEARCH_MOVIE, FETCH_MOVIE} from "./type"
+import axios from "axios";
 
-const searchAction  = text  => dispatch =>  
+export const searchAction  = text  => dispatch =>  
        dispatch({
             type: SEARCH_MOVIE,
             payload: text
        }) 
-    
-export default searchAction    
 
 
 // when we use the searchAction function in our component, text will be passed in the search Action function 
@@ -20,4 +19,17 @@ export default searchAction
 // }
 // 근데 dispatch 가 action 을 전달해야하니까, 
 // dispatch ( action )
+
+const API_KEY = process.env.REACT_APP_API_KEY;
+
+export const fetchMovie = text => dispatch => {
+    
+    axios.get(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${text}`)
+    .then( response => 
+        dispatch({
+            type: FETCH_MOVIE,
+            payload: response.data
+        })
+    ).catch( error => console.log(error))
+}
 
