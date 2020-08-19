@@ -25,11 +25,10 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 export const fetchMovie = text => dispatch => {
     
     axios.get(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${text}`)
-    .then( response => 
+    .then( response =>
         dispatch({
             type: FETCH_MOVIE,
-            payload: response.data
+            payload: response.data['Search']
         })
     ).catch( error => console.log(error))
 }
-

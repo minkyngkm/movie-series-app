@@ -11,12 +11,13 @@ const searchReducer = ( state = initialStates , action) => {
         case SEARCH_MOVIE : 
             return {
                 ...state,
-                text: action.payload
+                text: action.payload,
+                loading: false
             }
         case FETCH_MOVIE: 
             return {
                 ...state,
-                movies: action.payload
+                movies: action.payload,
             }
         default: 
             return state
