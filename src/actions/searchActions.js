@@ -1,4 +1,4 @@
-import { SEARCH_MOVIE, FETCH_MOVIE} from "./type"
+import { SEARCH_MOVIE, FETCH_MOVIES, FETCH_MOVIE} from "./type"
 import axios from "axios";
 
 export const searchAction  = text  => dispatch =>  
@@ -22,13 +22,24 @@ export const searchAction  = text  => dispatch =>
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-export const fetchMovie = text => dispatch => {
+export const fetchMovies = text => dispatch => {
     
     axios.get(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${text}`)
     .then( response =>
         dispatch({
-            type: FETCH_MOVIE,
+            type: FETCH_MOVIES,
             payload: response.data['Search']
+        })
+    ).catch( error => console.log(error))
+}
+
+export const fetchMovie = id => dispatch => {
+    
+    axios.get(`http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`)
+    .then( response =>
+        dispatch({
+            type: FETCH_MOVIE,
+            payload: response.data
         })
     ).catch( error => console.log(error))
 }
